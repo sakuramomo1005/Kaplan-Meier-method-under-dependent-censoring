@@ -21,5 +21,5 @@ The simulations show that the magnitude of the bias depends primar- ily on the p
 
    * An additional assumption: censoring only happens in high risk subpopulation.  
    
-   * It mentioned that: "Williams and Lagakos (1977) and Lagakos and Williams (1978) defined a "cone-class" of censoring models that are indexed by a parameter eE [0, 1]. When e= 0, censoring immediately precedes death; fI is the appropriate esti- mator of S(·). When e = 1, the KME is the appropriate estimator."
+   * It mentioned that: "Williams and Lagakos (1977) and Lagakos and Williams (1978) defined a "cone-class" of censoring models that are indexed by a parameter $\theta \in$ [0, 1]. When $\theta$= 0, censoring immediately precedes death; fI is the appropriate esti- mator of S(·). When $\theta$ = 1, the KME is the appropriate estimator."
    
