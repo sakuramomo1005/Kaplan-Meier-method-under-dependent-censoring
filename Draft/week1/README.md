@@ -23,3 +23,4 @@ The simulations show that the magnitude of the bias depends primar- ily on the p
    
    * It mentioned that: "Williams and Lagakos (1977) and Lagakos and Williams (1978) defined a "cone-class" of censoring models that are indexed by a parameter $\theta \in$ [0, 1]. When $\theta$= 0, censoring immediately precedes death; fI is the appropriate esti- mator of S(·). When $\theta$ = 1, the KME is the appropriate estimator."
    
+<a href="https://www.codecogs.com/eqnedit.php?latex=$\theta&space;\in&space;[0,1]]$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$\theta&space;\in&space;[0,1]]$" title="$\theta \in [0,1]]$" /></a>
