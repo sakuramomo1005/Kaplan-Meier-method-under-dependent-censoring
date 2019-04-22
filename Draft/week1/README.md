@@ -26,7 +26,3 @@ The simulations show that the magnitude of the bias depends primar- ily on the p
 <a href="https://www.codecogs.com/eqnedit.php?latex=$\theta&space;\in&space;[0,1]]$" target="_blank">
   
   
-  
-  <img src="https://latex.codecogs.com/gif.latex?$\theta&space;\in&space;[0,1]]$" title="$\theta \in [0,1]]$" /></a>
-
-![equation](https://www.codecogs.com/eqnedit.php?latex=$\theta&space;\in&space;[0,1]]$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$\theta&space;\in&space;[0,1]]$" title="$\theta \in [0,1]]$)
