@@ -25,3 +25,10 @@ The simulations show that the magnitude of the bias depends primar- ily on the p
 . When <a href="https://www.codecogs.com/eqnedit.php?latex=$\theta&space;=&space;0$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$\theta&space;=&space;0$" title="$\theta = 0$" /></a> , censoring immediately precedes death; H_{hat} is the appropriate estimator of S(·). When $\theta$ = 1, the KME is the appropriate estimator."
    
   
+* *Correcting for dependent censoring
+in routine outcome monitoring data by applying the inverse probability censoring weighted estimator* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/Correcting%20for%20dependent%20censoring%20in%20routine%20outcome%20monitoring%20data%20by%20applying%20the%20inverse%20probability%20censoring%20weighted%20estimator.pdf)
+   * 2016
+   * Weight method: inverse probability censoring weighted estimator (IPCW)
+   
+   
+   
