@@ -8,6 +8,7 @@
    *  Brief conclusion: 
 The simulations show that the magnitude of the bias depends primar- ily on the proportion of patients who are informatively censored and secondarily on the hazard ratio between those who are informatively censored and those who remain on study.
 
+* *Nonparametric estimation of successive duration times under dependent censoring*
 
 2. Alternative method?
 
