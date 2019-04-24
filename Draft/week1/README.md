@@ -33,6 +33,7 @@ The simulations show that the magnitude of the bias depends primar- ily on the p
 
 * Title: *A Model for Informative Censoring* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/A%20Model%20for%20Informative%20Censoring.pdf)
    * 1989
+   * Efron's self-consistency algorithm
    * Introduce a new method: modified Kaplan-Meier estimator (MKME).
    * An additional assumption: censoring only happens in high risk subpopulation.  
    * It mentioned that: "Williams and Lagakos (1977) and Lagakos and Williams (1978) defined a "cone-class" of censoring models that are indexed by a parameter  <a href="https://www.codecogs.com/eqnedit.php?latex=\theta&space;\in&space;[0,1]]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta&space;\in&space;[0,1]]" title="\theta \in [0,1]]" /></a>
