@@ -2,7 +2,8 @@
 
 * Title: *Censoring issues in survival analysis* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/CENSORING%20ISSUES%20IN%20SURVIVAL%20ANALYSIS.pdf)
    * Old review of censor, 1997
-   
+   * Mentioned other papers:
+      * *Bounds on net survival probabilities for dependent competing risks* (not available)
 
 
 ##### 1. Whether there is bias when the censoring is informative?
