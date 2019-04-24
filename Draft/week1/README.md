@@ -45,4 +45,7 @@ in routine outcome monitoring data by applying the inverse probability censoring
    * Weight method: inverse probability censoring weighted estimator (IPCW)
    * **How the weight calculated?** 
    
+* Title: *The Kaplan–Meier Estimator as an Inverse- Probability-of-Censoring Weighted Average* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/The%20Kaplan%E2%80%93Meier%20Estimator%20as%20an%20InverseProbability-of-Censoring%20Weighted%20Average.pdf)
+   * 2012
+   * IPCW method
    
