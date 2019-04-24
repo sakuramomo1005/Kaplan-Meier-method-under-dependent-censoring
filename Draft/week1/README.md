@@ -2,10 +2,11 @@
 
 * Title: *Censoring issues in survival analysis* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/CENSORING%20ISSUES%20IN%20SURVIVAL%20ANALYSIS.pdf)
    * Old review of censor, 1997
-   * Mentioned other papers:
+   * Mentioned other papers: (feel maybe useful but not available)
       * *Bounds on net survival probabilities for dependent competing risks* (not available)
-
-
+      * *Presenting censored survival data when censoring and survival times may not be independent* (not available)
+      * *Dependent competing risks and summary survival curves* (Eric V. Slud's paper)
+   
 ##### 1. Whether there is bias when the censoring is informative?
 
 For the below papers, there is bias when the censor C is dependent on T. And usually the estimated bias from Kaplan Meier method cannot be ignored. 
