@@ -2,14 +2,21 @@
 
 ##### 1. Whether there is bias when the censoring is informative?
 
+For the below papers, there is bias when the censor C is dependent on T. And usually the estimated bias from Kaplan Meier method cannot be ignored. 
+
+
 *  *Impact of Informative Censoring on the Kaplan-Meier Estimate of Progression-Free Survival in Phase II Clinical Trials*
 [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/Impact%20of%20Informative%20Censoring%20on%20the%20Kaplan-Meier%20Estimate%20of%20Progression-Free%20Survival%20in%20Phase%20II%20Clinical%20Trials.pdf)
-   * A simulation study on 2014
+   *  2014
+   *  A simulation study
    *  Brief conclusion: 
 The simulations show that the magnitude of the bias depends primar- ily on the proportion of patients who are informatively censored and secondarily on the hazard ratio between those who are informatively censored and those who remain on study.
 
 * *Nonparametric estimation of successive duration times under dependent censoring* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/Nonparametric%20estimation%20of%20successive%20duration%20times%20under%20dependent%20censoring.pdf)
-
+   * 1998
+   * Focused on two duriation times, like HIV first and then AIDs. The two times are correlated and not independent.
+   * The paper shows that even when the two times have week correlation, the bias from Kaplan Meier is large.
+   
 * *Estimating marginal survival function by adjusting for dependent censoring using many covariates* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/ESTIMATING%20MARGINAL%20SURVIVAL%20FUNCTION%20BY%20ADJUSTING%20FOR%20DEPENDENT%20CENSORING%20USING%20MANY%20COVARIATES.pdf)
    * 2004
    * Marginal model, kernal function
