@@ -5,7 +5,7 @@
    * Mentioned other papers: (feel maybe useful but not available)
       * *Bounds on net survival probabilities for dependent competing risks* (not available)
       * *Presenting censored survival data when censoring and survival times may not be independent* (not available)
-      * *Dependent competing risks and summary survival curves* (Eric V. Slud's paper)
+      * *Dependent competing risks and summary survival curves* (Eric V. Slud's paper) [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/Dependent%20competing%20risks%20and%20summary%20survival%20curves.pdf)
    
 ##### 1. Whether there is bias when the censoring is informative?
 
