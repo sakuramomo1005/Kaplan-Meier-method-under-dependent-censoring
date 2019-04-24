@@ -3,7 +3,7 @@
 ##### 1. Whether there is bias when the censoring is informative?
 
 *  *Impact of Informative Censoring on the Kaplan-Meier Estimate of Progression-Free Survival in Phase II Clinical Trials*
-[the paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/Impact%20of%20Informative%20Censoring%20on%20the%20Kaplan-Meier%20Estimate%20of%20Progression-Free%20Survival%20in%20Phase%20II%20Clinical%20Trials.pdf)
+[paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/Impact%20of%20Informative%20Censoring%20on%20the%20Kaplan-Meier%20Estimate%20of%20Progression-Free%20Survival%20in%20Phase%20II%20Clinical%20Trials.pdf)
    * A simulation study on 2014
    *  Brief conclusion: 
 The simulations show that the magnitude of the bias depends primar- ily on the proportion of patients who are informatively censored and secondarily on the hazard ratio between those who are informatively censored and those who remain on study.
@@ -13,7 +13,7 @@ The simulations show that the magnitude of the bias depends primar- ily on the p
 * *Estimating marginal survival function by adjusting for dependent censoring using many covariates* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/ESTIMATING%20MARGINAL%20SURVIVAL%20FUNCTION%20BY%20ADJUSTING%20FOR%20DEPENDENT%20CENSORING%20USING%20MANY%20COVARIATES.pdf)
    * 2004
    * Marginal model, kernal function
-   * Kaplan-Meier can have large bias, when the T and C are dependent through covariates L 
+   * In their results (table1 and table2) Kaplan-Meier can have large bias, when the T and C are dependent through covariates L 
 
 ##### 2. Alternative method?
 
