@@ -43,7 +43,9 @@ The simulations show that the magnitude of the bias depends primar- ily on the p
 in routine outcome monitoring data by applying the inverse probability censoring weighted estimator* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/Correcting%20for%20dependent%20censoring%20in%20routine%20outcome%20monitoring%20data%20by%20applying%20the%20inverse%20probability%20censoring%20weighted%20estimator.pdf)
    * 2016
    * Weight method: inverse probability censoring weighted estimator (IPCW)
-   * **How the weight calculated?** 
+   * How the weight calculated?
+     * times the inverse of weight in denominator and nominator
+     * the weight K(t) is caluclated similar as S(t), by just replacing the death time T with censor time C
    
 * Title: *The Kaplan–Meier Estimator as an Inverse- Probability-of-Censoring Weighted Average* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/The%20Kaplan%E2%80%93Meier%20Estimator%20as%20an%20InverseProbability-of-Censoring%20Weighted%20Average.pdf)
    * 2012
