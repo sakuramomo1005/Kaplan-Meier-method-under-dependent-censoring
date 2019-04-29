@@ -4,7 +4,8 @@
 [Dependent competing risk and summary surivial curves](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week1/papers/Dependent%20competing%20risks%20and%20summary%20survival%20curves.pdf)
 
 The list of papers who cited this paper
-[list](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week2/citations.csv)
+
+ * [list](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week2/citations.csv)
 
 ### A generalized kaplan-meier estimator for heterogenous populations
 
