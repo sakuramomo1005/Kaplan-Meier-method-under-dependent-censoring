@@ -19,3 +19,8 @@ The list of papers who cited this paper
 * This paper has attempted to trace the historical efforts of the development of the statistical
 methods for dependent competing risks to the present time.
 * Cited Slud's work to show one method for dependent censor.
+
+### A WEIBULL MODEL FOR DEPENDENT CENSORING
+* 1990
+* Cited Slud paper in the introduction:
+  * Peterson (1976) gave worst case bounds on the survival distribution without any assumptions. Williams and Lagakos (1977) provided conditions for the Kaplan-Meier estimator to be consistent even in the presence of dependence. Slud and Rubenstein (1983) gave bounds based on specific knowledge about hazard ratios. Robertson and Uppuluri (1984) extended the Kaplan-Meier estimator to nonparametric estimates with depen- dent margins. Klein and Moeschberger (1984) assumed a particular form of dependence and gave bounds on the survival distribution in that case.
