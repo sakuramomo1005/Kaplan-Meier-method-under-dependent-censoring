@@ -13,7 +13,7 @@ The list of papers who cited this paper
  * 1988
  * Cited Slud's paper by using its idea that KM is inappropriate for dependent censor.
 
-### 
+### Statistical methods for dependent competing risks
 * [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week2/paper/Statistical%20methods%20for%20dependent%20competing%20risks.pdf)
 * 1995
 * This paper has attempted to trace the historical efforts of the development of the statistical
