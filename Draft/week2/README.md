@@ -12,3 +12,10 @@ The list of papers who cited this paper
  * [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week2/paper/A%20generalized%20kaplan-meier%20estimator%20for%20heterogenous%20populations.pdf)
  * 1988
  * Cited Slud's paper by using its idea that KM is inappropriate for dependent censor.
+
+### 
+* [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week2/paper/Statistical%20methods%20for%20dependent%20competing%20risks.pdf)
+* 1995
+* This paper has attempted to trace the historical efforts of the development of the statistical
+methods for dependent competing risks to the present time.
+* Cited Slud's work to show one method for dependent censor.
