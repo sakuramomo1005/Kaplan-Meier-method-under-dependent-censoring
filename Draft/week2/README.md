@@ -33,5 +33,6 @@ methods for dependent competing risks to the present time.
  
  ### Actual and Actuarial Probabilities of Competing Risks: Apples and Lemons
 * [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week2/paper/Actual%20and%20Actuarial%20Probabilities%20of%20Competing%20Risks%20Apples%20and%20Lemons.pdf)
-* Slud's method not widly used:
+* 2007
+* Slud's method not widely used:
   * Correcting the KM Estimate: Some methods to overcome the limitations of informative censoring have been suggested [20 –22], but they are rarely used in the cardiac literature, and the incorrect KM method is used instead. One method of adjusting for informative\ censoring, called inverse probability weighting (IPW) 
