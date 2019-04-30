@@ -29,4 +29,9 @@ methods for dependent competing risks to the present time.
  ### On semi-competing risks data
  * [paper link](https://github.com/sakuramomo1005/Kaplan-Meier-method-under-dependent-censoring/blob/master/Draft/week2/paper/on%20semi-competing%20risks%20data.pdf)
  * 2001
- * Mentioned some cons for the method: complex, restrictive conditions, 
+ * Mentioned some cons for the method: complex, restrictive conditions, need some other assumptions
+ 
+ ### Actual and Actuarial Probabilities of Competing Risks: Apples and Lemons
+* [paper link]()
+* Slud's method not widly used:
+  * Correcting the KM Estimate: Some methods to overcome the limitations of informative censoring have been suggested [20 –22], but they are rarely used in the cardiac literature, and the incorrect KM method is used instead. One method of adjusting for informative\ censoring, called inverse probability weighting (IPW) 
