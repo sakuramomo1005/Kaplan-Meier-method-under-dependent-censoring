@@ -36,3 +36,7 @@ methods for dependent competing risks to the present time.
 * 2007
 * Slud's method not widely used:
   * Correcting the KM Estimate: Some methods to overcome the limitations of informative censoring have been suggested [20 –22], but they are rarely used in the cardiac literature, and the incorrect KM method is used instead. One method of adjusting for informative\ censoring, called inverse probability weighting (IPW) 
+
+
+
+ps competing event, usually termed a competing risk, means censoring
