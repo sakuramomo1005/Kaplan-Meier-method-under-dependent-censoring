@@ -32,3 +32,18 @@ Calculate rho, there is an error in estimating the phi function.
 
 Try the correct estimation and check whether it converges: the paper a large sample study of the life table and prodcut limit estimates under random censorship
 
+## Week 5
+
+* 2019-05-22 to 2019-05-29
+
+## Week 6
+
+* 2019-05-29 to 2019-06-05
+
+## Week 7
+
+* 2019-06-05 to 2019-06-12
+
+
+
+
