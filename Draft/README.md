@@ -44,6 +44,10 @@ Try the correct estimation and check whether it converges: the paper a large sam
 
 * 2019-06-05 to 2019-06-12
 
+## Week 8
+
+Try to prove consistency of the new formula
+
 
 
 
