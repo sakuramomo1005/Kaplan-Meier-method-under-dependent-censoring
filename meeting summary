@@ -1,1 +1,6 @@
 
+2019-07-25
+
+1. If rho is not bounded, i.g. goes to infinity, Spt1 and Spt2 may have big difference. 
+
+                                                                         
