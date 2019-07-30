@@ -3,4 +3,8 @@
 
 1. If rho is not bounded, i.g. goes to infinity, Spt1 and Spt2 may have big difference. 
 
-                                                                         
+2. Let finity number of delta_i goes to infity, the difference between Sp1 and Skm may be still small. 
+
+3. Find example
+
+4. ita = log(4rho/(1 + rho^2))
