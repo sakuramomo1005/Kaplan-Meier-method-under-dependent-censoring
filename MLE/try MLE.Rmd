@@ -1,0 +1,139 @@
+---
+title: "Try MLE"
+date: 2019-08-22
+output: pdf_document
+---
+
+# Hightlight
+
+* To begin with an easy way, we may try the previous piecewise example, since it has already had close form for $S(t)$ and $f(t)$ 
+
+* We set a true $\rho = 0.1$ at first and simulate data. However, the MLE of $\rho$ does not at point 0.1. I think this may be becasue the formula of MLE is not correct (since it need independent assumption). We may need a now one? 
+
+* When write $\hat S(.)$ as the function of $\rho$, when we have true $\rho$, the $\hat S(.)$ is most close to the true $\rho$, which makes sense
+
+* Using integral estimation method 2 is better than the Riemann integral estimation, since it does not need to estimate $\psi(t)$
+
+
+
+
+# Does the likelihood formula correct?
+
+Previous we write likelihood as:
+$$\prod_{i=1}^{n} f(\rho; t_i)^{\delta_i} S(\rho; t_i)^{1-\delta_i}$$
+The log-likelihood is:
+$$\sum_{i=1}^{n} {\delta_i} log(f(\rho; t_i)) + ({1-\delta_i})S(\rho; t_i)$$
+
+
+From the piecewise example, we have: 
+
+$S(\rho; t_i) = \frac{\rho - 1}{\rho -2} exp(-2t) - \frac{1}{\rho-2} exp(-\rho t)$
+
+$f(\rho; t_i) = \frac{2\rho -2}{\rho - 2}exp(-2t) - \frac{\rho}{\rho-2} exp(-\rho t)$
+
+$\frac{\partial f(\rho;t_i)}{\partial \rho} = exp(-2t_i) \big[-\frac{2}{(\rho - 2)^2}\big] + exp(-\rho t_i) \big[\rho + \frac{2\rho}{\rho -2} + \frac{2}{(\rho - 2)^2}\big]$
+
+$\frac{\partial S(\rho;t_i)}{\partial \rho} = exp(-2t_i) \big[ -\frac{1}{(\rho - 2)^2}\big] + exp(-\rho t_i) \big[ \frac{1}{(\rho - 2)^2} + \frac{\rho}{\rho -2}\big]$
+
+Then the derivation of loglikelihood re $\rho$ is:
+$$\begin{aligned}
+\frac{\partial l(\rho; t_i)}{\rho} = & \sum_{i=1}^{n} {\delta_i} \frac{exp(-2t_i) \big[-\frac{2}{(\rho - 2)^2}\big] + exp(-\rho t_i) \big[\rho + \frac{2\rho}{\rho -2} + \frac{2}{(\rho - 2)^2}\big]}{f(\rho; t_i)} \\
+& +\sum_{i=1}^{n} (1-{\delta_i}) \frac{exp(-2t_i) \big[ -\frac{1}{(\rho - 2)^2}\big] + exp(-\rho t_i) \big[ \frac{1}{(\rho - 2)^2} + \frac{\rho}{\rho -2}\big]}{S(\rho; t_i)}
+\end{aligned}$$
+
+Then we may use Newton-Raphson method to estiamte its soluction. However.
+
+**Question**: Does the formula correct? Is that special for independent scenarios? Since:
+$$L(\theta; x, \delta) = \prod_{i=1}^n \big[ f(x_i; \theta) \big]^{\delta_i} \big[ S(x_i; \theta)  \big] ^{1-\delta_i}$$
+This likelihood formula comes from: 
+$$L(\theta; x, \delta) =\prod_{i=1}^{n} f(x_i, \delta_i; \theta) = \prod_{i=1}^{n} f(x_i, \delta_i = 1; \theta)^{\delta_i} f(x_i, \delta_i = 0; \theta)^{1-\delta_i}$$
+When $\theta_i = 1$
+$$\begin{aligned}
+P(x \leq X < x + h, \delta_i = 1) = & P(x \leq X < x + h, C \geq T) \\
+\approx & P(x \leq T < x + h, C \geq x) \text{ (x is a fixed number and } h \rightarrow 0).  \\
+= & P(x \leq T < x + h) P(C \geq x) \text{ (when independent)}\\
+= & f(x) h P(C \geq x)
+\end{aligned}$$
+Therefore, 
+$$f(x \leq X < x + h, \delta_i = 1) = \lim_{h \rightarrow 0}\frac{P(x \leq T < x + h, \delta_i = 1)}{h} = f(x) P(C \geq x)$$
+
+Similarly, when $\delta_i =0$
+$$\begin{aligned}
+P(x \leq X < x + h, \delta_i = 0) = & P(x \leq X < x + h, T > C) \\
+\approx & P(x \leq C < x + h, T \geq x) \\
+= & P(x \leq C < x + h) P( T \geq x) \text{ (by independence)} \\
+= & g(x) h P( T \geq x)
+\end{aligned}$$
+where $g(x)$ is the pdf for censor time.
+Therefore, 
+$$f(x \leq X < x + h, \delta_i = 0) = \lim_{h \rightarrow 0}\frac{P(x \leq C < x + h, \delta_i = 0)}{h} = g(x)  S(x)$$
+
+Therefore,
+$$\begin{aligned}
+f(x, \delta; \theta) = & \big[ f(x) P(C \geq x)\big] ^ {\delta_i} \big[ g(x)  S(x)\big] ^{1 -\delta_i} \\
+ = & f(x)^ {\delta_i}S(x)^{1 -\delta_i} P(C \geq x)^ {\delta_i} g(x) ^{1 -\delta_i}
+\end{aligned}$$
+If only the $\theta$ is only the parameter for survival functions instead of censoring functions, then the $P(C \geq x)$ and $g(x)$ doesn't contain $\theta$. The likelihood can be 
+$$L(\theta; x, \delta) = \prod_{i=1}^n \big[ f(x_i; \theta) \big]^{\delta_i} \big[ S(x_i; \theta)  \big] ^{1-\delta_i}$$
+Therefore, this formula comes from the assumption of independence. (Did I think it in a right way?)
+
+We may need a new formula for the dependent likelihood. 
+
+# Try this likelihood function
+
+Simulate data with size 1000, true $\rho = 0.1$. The MLE function w.r.t $\rho$ is
+$$\begin{aligned}
+MLE(\rho)= & \sum_{i=1}^{n} {\delta_i} \frac{exp(-2t_i) \big[-\frac{2}{(\rho - 2)^2}\big] + exp(-\rho t_i) \big[\rho + \frac{2\rho}{\rho -2} + \frac{2}{(\rho - 2)^2}\big]}{f(\rho; t_i)} \\
+& +\sum_{i=1}^{n} (1-{\delta_i}) \frac{exp(-2t_i) \big[ -\frac{1}{(\rho - 2)^2}\big] + exp(-\rho t_i) \big[ \frac{1}{(\rho - 2)^2} + \frac{\rho}{\rho -2}\big]}{S(\rho; t_i)}
+\end{aligned}$$
+We could input the data to check who the MLE function value varies when $\rho$ value changes.
+
+I just used grid search, $\rho$ from 0.1, 0.2, 0.3,..., 3.0. The corresponding MLE values: 
+
+```{R echo = FALSE}
+ setwd('/Users/yaolanqiu/Desktop/NYU/Research/Survival/MLE-2019-08-21')
+load('RES.RData')
+RES
+```
+
+The result that is most close to 0 is $\rho = 0.7$, which is not our true $\rho$ value. 
+
+
+# $\hat S(.)$ as $\rho$'s function
+
+When we write $\hat S(.)$ as a function of $\rho$, when the $\rho$ is our true value, it works the best. And the integral estimation method that does not need to estimate the $\psi(t)$ works better than the Reimann integral estimation 
+
+```{R include = FALSE}
+RHO = 0.1
+S = function(t){
+    res = 0.5 * (2 * RHO - 2) / (RHO - 2) * exp(-2 * t) - 1 / (RHO - 2) * exp(- RHO * t)
+    return(res)
+}
+load("~/Desktop/NYU/Research/Survival/rho and sp-2019-08-15/result-1000-0.1.RData")
+  data =result$data
+```
+
+```{R fig.width=8, fig.height=4,echo=FALSE,  fig.align = "center"}
+
+setwd('/Users/yaolanqiu/Desktop/NYU/Research/Survival/MLE-2019-08-21')
+load('rrr0822.RData')
+par(mfrow = c(1,2))
+plot(data$time[1:500], S(data$time)[1:500], type ='l', xlab = 'time', ylab = 'S(t)', 
+     main = 'Plot with integral estimation 1')
+for(i in 1:10){
+  S_ode_est = result$S_list1[[i]]
+  lines(data$time[1:500],S_ode_est, col = i + 1, lty = 2)
+  #print(mean(abs(S(data$time)[1:200] -  S_ode_est)))
+}
+legend('topright', legend = c(paste('rho',seq(0.1,1,0.1))), lty = 2, col = 2:11, cex = 0.8)
+
+plot(data$time[1:500], S(data$time)[1:500], type ='l', xlab = 'time', ylab = 'S(t)', 
+     main = 'Plot with Reimann integral estimation ')
+for(i in 1:10){
+  S_ode_est = result$S_list2[[i]]
+  lines(data$time[1:500],S_ode_est, col = i + 1, lty = 2)
+  #print(mean(abs(S(data$time)[1:200] -  S_ode_est)))
+}
+legend('topright', legend = c(paste('rho',seq(0.1,1,0.1))), lty = 2, col = 2:11, cex = 0.8)
+
+```

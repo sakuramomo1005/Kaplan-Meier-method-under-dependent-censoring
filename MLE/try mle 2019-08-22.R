@@ -1,0 +1,437 @@
+library(survival)
+# load in functions
+
+for(functions in 1){
+  RHO = 0.1
+  # function for data generation: 
+  f1 = function(t){return(exp(-t))}
+  f2 = function(t){return(RHO * exp(-t * RHO))}
+  fc = function(s){return(-s)}
+  S1 = function(t){return(exp(-t))}
+  S2 = function(t){return(exp(-RHO*t))}
+  
+  f = function(t){
+    res = (2 * RHO - 2) / (RHO - 2) * exp(-2 * t) - RHO / (RHO - 2) * exp(- RHO * t)
+    return(res)
+  }
+  S = function(t){
+    res = 0.5 * (2 * RHO - 2) / (RHO - 2) * exp(-2 * t) - 1 / (RHO - 2) * exp(- RHO * t)
+    return(res)
+  }
+  psi = function(t){
+    return(exp(-2 * t))
+  }
+  Psi = function(t){return(0.5 * (1 - exp(-2 * t)))}
+  Sx = function(t){
+    return(exp(-2 * t))
+  }
+  rou = function(t){
+    return((f(t)/psi(t) - 1)/(S(t)/Sx(t) - 1))
+  }
+  rho = function(t){
+    return((f(t)/psi(t) - 1)/(S(t)/Sx(t) - 1))
+  }
+  
+  # functions for likelihood estimation 
+  S0 = function(rho,t){
+    res = (rho - 1)/(rho - 2) * exp(-2 * t) - 1/(rho - 2) * exp(-rho * t)
+    return(res)
+  }
+  f0 = function(rho,t){
+    res = (2 * rho - 2)/(rho -2) * exp(-2 * t) - rho/(rho -2) * exp(-rho * t)
+    return(res)
+  }
+  
+  Sp0 = function(rho, t){
+    res = exp(-2 * t) * (-1 /(rho-2)^2) + exp(-rho * t) * (rho/(rho - 2) + 1/(rho -2)^2)
+    return(res)
+  }
+  fp0 = function(rho, t){
+    res = exp(-2 * t) * (-2 /(rho-2)^2) + exp(-rho * t) * (rho + 2 * rho/(rho - 2) + 2/(rho - 2)^2)
+    return(res)
+  }
+  
+  llh = function(rho, t, delta){
+    res = delta * fp0(rho,t)/f0(rho,t) + (1-delta) * Sp0(rho,t)/S0(rho,t)
+    return(res)
+  }
+  
+  # functions for estimation 
+  f_ts1 = function(t,s){
+    return(exp(-s-t))
+  }
+  # if t>s
+  f_ts2 = function(t,s){
+    return(RHO * exp((RHO - 2) * s - RHO * t))
+  }
+  
+  #### other functions, calculate sp1, sp2
+  
+  ni = function(i){
+    X = sort(data$time)
+    id = which(X == Xd[i])[1]
+    return(length(X) - id + 1)
+  }
+  
+  ci = function(i){
+    xi = Xd[i]
+    xi1 = Xd[i + 1]
+    temp = data[data$time > xi & data$time< xi1,] ## < or <=?
+    return(sum(temp$status == 0))
+  }
+  
+  part2_version1 = function(t){
+    # slud's function 
+    N = dim(data)[1]
+    dt = sum(data$time <= t & data$status == 1)
+    nt = sum(data$time > t)
+    temp = 0
+    if(dt == 0){
+      temp = 0
+    }else{
+      for(k in 0:(dt - 1)){
+        temp2 = 1
+        for(i in (1+k):dt){
+          xd = Xd[i]
+          if(Xd[i] == 0){xd = 10e-10}
+          part3 = ni(i) - 1 + rho(xd)
+          if(part3 == 0){
+            part3 = 10e-10
+          }
+          temp2 = temp2 *  (1 - min(part3/(part3+3), rho(xd)/part3)) 
+        }
+        temp = temp + ci(k) * temp2
+      }
+    }
+    return(temp /N)
+  }
+  
+  part2_version2 = function(t){
+    N = dim(data)[1]
+    dt = sum(data$time <= t & data$status == 1)
+    nt = sum(data$time > t)
+    temp = 0
+    if(dt == 0){
+      temp = 0
+    }else{
+      temp2 = ci(dt - 1)
+      if(dt < 2){
+        temp = 0 
+      }else{
+        for(k in 0:(dt - 2)){
+          temp3 = 1
+          for(i in (1+k):(dt-1)){
+            part3 = ni(i)
+            if(part3 == 0){
+              part3 = 10e-10
+            }
+            xd = Xd[i]
+            if(xd == 0){xd = 10e-10}
+            temp3 = temp3 * (1 - min(part3/(part3+3), rho(xd)/part3))
+          }
+          temp = temp + ci(k) * temp3
+        }
+      }
+      temp = temp + temp2
+    }
+    return(temp /N)
+  }
+  
+  Spt = function(t){
+    N = dim(data)[1]
+    nt = sum(data$time > t)
+    
+    part1 = 1/N * nt 
+    s11 = part1
+    
+    s1 = part1 + part2_version1(t)
+    s2 = part1 + part2_version2(t)
+    
+    return(list(s1 = s1, s2 = s2, s11 = s11))
+  }
+  
+  
+  S_est = function(t){
+    ii = which(abs(t - t_est) == min(abs(t - t_est)))
+    res = s_est[ii]
+    return(res)
+  }
+  #*#*#*#*#*#*#*#*#*#*#
+  Sx_est = function(t){
+    res = sum(data$time > t)/dim(data)[1]
+    return(res)
+  }
+  #*#*#*#*#*#*#*#*#*#*#
+  est_Psi = function(t){
+    size1 = dim(data)[1]
+    size2 = sum(data$time < t & data$status == 1)
+    return(size2/size1)
+  }
+  #*#*#*#*#*#*#*#*#*#*#
+  f_est = function(t){
+    dif = abs(t - est_f_data$x)
+    ii = which(dif == min(dif))
+    return(est_f_data$y[ii])
+  }
+  #*#*#*#*#*#*#*#*#*#*#
+  psi_est = function(t){
+    dif = abs(t - est_psi_data$x)
+    ii = which(dif == min(dif))
+    return(est_psi_data$y[ii])
+  }
+  
+}
+
+# data generation 
+
+for(datageneration in 1){
+  set.seed(123)  
+  seqs = seq(0,5,0.01)
+  Ss = rep(seqs, each = length(seqs))
+  Tt = rep(seqs, length(seqs))
+  P1 = f_ts1(Tt, Ss)
+  P2 = f_ts2(Tt, Ss)
+  grid_data = data.frame(subj = 1:length(P1), s = Ss, t = Tt, p1 = P1, p2 = P2) 
+  its = grid_data$t > grid_data$s
+  p = ifelse(its, P2, P1)
+  grid_data$p = p
+  grid_data$p = grid_data$p/sum(grid_data$p)
+  
+  N = 200
+  sample_data = sample(1:length(grid_data$p), size = N, prob = grid_data$p)
+  
+  # sampled data 
+  data = grid_data[sample_data,] 
+  data = data.frame(deathtime = data$t, censortime = data$s, status = (data$t< data$s))
+  data$time = ifelse(data$status == 1, data$deathtime, data$censortime)
+  data$status = ifelse(data$status == TRUE, 1, 0)
+  data = round(data,3)
+  length(unique(data$time))
+  dim(data)
+  data_inti = data
+  
+  mu_time = as.numeric(names(table(data$time)[which(table(data$time) > 1)]))
+  for(i in 1:length(mu_time)){
+    ii = which(data$time == mu_time[i])
+    for(j in 2:length(ii)){
+      data$time[ii[j]] = data$time[ii[j]] + j * 10e-6 
+    }
+  }
+  
+  sum(table(data$time)>1)
+  rownames(data) =NULL
+  
+  load("~/Desktop/NYU/Research/Survival/rho and sp-2019-08-15/result-1000-0.1.RData")
+  data =result$data
+  
+  data0 = data
+  data0$status = 1
+  data0$time = data0$deathtime
+  head(data)
+  dim(data)
+  
+  # get death time
+  X = sort(data$time)
+  data = data[order(data$time),]
+  d = sum(data$status == 1)
+  data_death = data[data$status == 1, ]; rownames(data_death) = NULL
+  Xd = data_death$time
+  length(Xd)
+  true_rou_values = rou(Xd) # the true rho values 
+  rownames(data) = NULL
+}
+
+# sample a dataset
+# calculate the MLE
+
+res_llh = function(rho){
+  res = c()
+  for(i in 1:dim(data)[1]){
+    d_i = data$status[i]
+    t_i = data$time[i]
+    res = c(res, llh(rho, t_i, d_i))
+  }
+  return(sum(res))
+}
+
+RES = c(); tt = c()
+for(r in seq(0.1,3,0.1)){
+  if(r !=2){
+    tt = c(tt, r)
+    RES = c(RES, res_llh(r))
+  }
+}
+plot(tt, RES, type ='l')
+est_rho = tt[which(abs(RES) == min(abs(RES)))]
+
+
+# Try estimation 
+# psi estimate not accurate 
+PP = c()
+for(i in seq(0, max(data$time), 0.001)){
+  PP = c(PP, est_Psi(i))
+}
+ttt = seq(0,3,0.1)
+plot(seq(0, max(data$time), 0.001), PP, type ='l', main ='Psi(t) and its estimation')
+lines(ttt, Psi(ttt), lty = 2, col = 2)
+legend('bottomright', legend = c('hat Psi(t)','psi(t)'), lty = 1:2, col = 1:2)
+
+est_psi = c()
+NN = 10000
+for(i in runif(NN,0,1)){
+  dif = abs(i - PP)
+  ii = which(dif == min(dif))[1]
+  est_psi = c(est_psi, seq(0, max(data$time), 0.001)[ii])
+}
+
+# density
+h = density(est_psi, kernel="gaussian")$bw # $
+w = 1 / pnorm(0, mean=est_psi, sd=h, lower.tail=FALSE)
+d = density(est_psi, bw=h, kernel="gaussian", weights=w / length(est_psi))
+d$y[d$x < 0] = 0
+sum(d$y * diff(d$x)[1])
+est_psi_data = data.frame(x = d$x, y = d$y)
+
+plot(est_psi_data$x, est_psi_data$y, type ='l', main = 'psi and its estimation')
+lines(ttt, psi(ttt), lty = 2, col = 2)
+legend('topleft', legend = c('hat Psi(t)','psi(t)'), lty = 1:2, col = 1:2)
+
+sx_est = c()
+for(i in 1:dim(data)[1]){
+  sx_est = c(sx_est, Sx_est(data$time[i]))
+}
+plot(data$time, Sx(data$time), type ='l')
+lines(data$time, sx_est, col = 2)
+
+
+# The new estimation method 
+for(functions in 1){
+  # Riemann integral
+  g_r = function(t){
+    res_temp = c()
+    marker = c()
+    h = 0.01 
+    for(i in seq(0, t, h)){
+      rho_here = est_rho  # rou_est is continous, rho_est is piecewise
+      Sx_here = Sx_est(i)
+      psi_here = psi_est(i)
+      temp_marker = 0
+      if(Sx_here == 0){
+        Sx_here = 10e-10
+        temp_marker = 1
+      }
+      marker = c(marker, temp_marker)
+      res_temp = c(res_temp, psi_here * rho_here / Sx_here)
+    }
+    res = res_temp[marker!=1]
+    res = res * h
+    return(sum(res,na.rm = TRUE))
+  }
+  S_ode_r = function(t){
+    
+    res_temp = c()
+    h = 0.01
+    for(i in seq(0, t, h)){
+      res_temp = c(res_temp, psi_est(i) * (est_rho - 1) * exp(g_r(i)))
+    }
+    
+    res = h * sum(res_temp, na.rm = TRUE)
+    res =(1/exp(g_r(t))) * (1 + res)
+    
+    return(res)
+  }
+  
+  # Expectation
+  death = data[data$status == 1,]; rownames(death) = NULL
+  g_e = function(t){
+    PI= sum(data$status)/dim(data)[1]
+    ii = sum(death$time < t)
+    if(ii == 0){
+      return(0)
+    }else{
+      temp = c()
+      for(i in 1:ii){
+        tt = death$time[i]
+        temp = c(temp, est_rho/Sx_est(tt))
+      }
+      return(sum(temp)/dim(data)[1] * PI)
+    }
+  }
+  S_ode_e = function(t){
+    PI= sum(data$status)/dim(data)[1]
+    part1 = exp(-g_e(t)) 
+    part2 = c()
+    ii = sum(death$time < t)
+    if(ii == 0){
+      part2 = 0
+    }else{
+      for(i in 1:ii){
+        tt = death$time[i]
+        part2 = c(part2, (est_rho - 1) * exp(g_e(tt)))
+      }
+      part2 = sum(part2) * PI / dim(data)[1]
+    }
+    return(part1 * (1 + part2))
+  }
+  
+}
+
+
+S(1)
+S_ode_r(1)
+S_ode_e(1)
+
+est_rho
+plot(data$time[1:200], S(data$time)[1:200], type ='l')
+
+S_list1 = list(); S_list2 = list()
+for(j in 1:10){
+  est_rho = seq(0.1,1,0.1)[j]
+  S_ode_est = c(); S_ode_r_est = c()
+  for(i in 1:200){
+    if(i %% 10 == 0){print(i)}
+    S_ode_est = c(S_ode_est , S_ode_e(data$time[i]))
+    S_ode_r_est = c(S_ode_r_est , S_ode_r(data$time[i]))
+  }
+  S_list1[[j]] =  S_ode_est
+  S_list2[[j]] =  S_ode_r_est
+  #lines(data$time[1:200],S_ode_est, col = j, lty = 2)
+  #lines(data$time[1:200],S_ode_r_est, col = j, lty = 3)
+}
+
+plot(data$time, S(data$time), type ='l')
+lines(data$time,S_ode_est, col = 2)
+plot(data$time, S(data$time), type ='l')
+lines(data$time,S_ode_r_est, col = 4)
+
+plot(data$time[1:200], S(data$time)[1:200], type ='l')
+for(i in 1:10){
+  S_ode_est = S_list1[[i]]
+  #lines(data$time[1:200],S_ode_est, col = i + 1, lty = 2)
+  print(mean(abs(S(data$time)[1:200] -  S_ode_est)))
+}
+
+
+setwd('/Users/yaolanqiu/Desktop/NYU/Research/Survival/MLE-2019-08-21')
+load('rrr0822.RData')
+result$S_list1
+
+plot(data$time[1:500], S(data$time)[1:500], type ='l', xlab = 'time', ylab = 'S(t)', 
+     main = 'Plot with integral estimation 1')
+for(i in 1:10){
+  S_ode_est = result$S_list1[[i]]
+  lines(data$time[1:500],S_ode_est, col = i + 1, lty = 2)
+  #print(mean(abs(S(data$time)[1:200] -  S_ode_est)))
+}
+legend('topright', legend = c(paste('rho',seq(0.1,1,0.1))), lty = 2, col = 2:11, cex = 0.8)
+
+
+plot(data$time[1:500], S(data$time)[1:500], type ='l', xlab = 'time', ylab = 'S(t)', 
+     main = 'Plot with Reimann integral estimation ')
+for(i in 1:10){
+  S_ode_est = result$S_list2[[i]]
+  lines(data$time[1:500],S_ode_est, col = i + 1, lty = 2)
+  #print(mean(abs(S(data$time)[1:200] -  S_ode_est)))
+}
+legend('topright', legend = c(paste('rho',seq(0.1,1,0.1))), lty = 2, col = 2:11, cex = 0.8)
+
