@@ -13,3 +13,4 @@ inverse is hard to calculate
 3. MLE results
 
 4. Iterations
+
